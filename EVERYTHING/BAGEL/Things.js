@@ -42,7 +42,7 @@ import algoliasearch from "algoliasearch";
 import QRCode from "react-native-qrcode-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Clipboard from "expo-clipboard";
-import * as Sharing from 'expo-sharing';
+import * as Sharing from "expo-sharing";
 //
 import { initializeApp } from "firebase/app";
 import {
@@ -105,13 +105,13 @@ export var myCoords = {
 };
 // Config
 const firebaseConfig = {
-  apiKey: "AIzaSyAMkZs0qvSSYVfA4pOMzSkXl-Nkut7raqw",
-  authDomain: "iic-appline-template.firebaseapp.com",
-  projectId: "iic-appline-template",
-  storageBucket: "iic-appline-template.appspot.com",
-  messagingSenderId: "957439211423",
-  appId: "1:957439211423:web:57d7872b6486b922102faa",
-  measurementId: "G-D2Y4Q8QLJW",
+  apiKey: "AIzaSyAOcdO9MKBgqFdQ18zs93atYPMxcrHIzUY",
+  authDomain: "coffeeshopapp-b639b.firebaseapp.com",
+  projectId: "coffeeshopapp-b639b",
+  storageBucket: "coffeeshopapp-b639b.appspot.com",
+  messagingSenderId: "147422283500",
+  appId: "1:147422283500:web:660263371b6c6f95e487c9",
+  measurementId: "G-C7QVG6XZ8Q",
 };
 
 // APP INFO
@@ -439,9 +439,7 @@ export function ShowMoreView({ height, children, theme }) {
   return (
     <View>
       <View
-        style={[
-          { overflow: "hidden", height: showMore ? undefined : height },
-        ]}
+        style={[{ overflow: "hidden", height: showMore ? undefined : height }]}
       >
         {children}
         {!showMore && (
@@ -1097,7 +1095,7 @@ export function TextFieldOne({
   function onType(text) {
     setter(text);
     if (onChange !== undefined) {
-      onChange(text)
+      onChange(text);
     }
   }
   return (
@@ -1172,7 +1170,7 @@ export function TextAreaOne({
   function onType(text) {
     setter(text);
     if (onChange !== undefined) {
-      onChange(text)
+      onChange(text);
     }
   }
 
@@ -2360,7 +2358,12 @@ export function Map({
     </View>
   );
 }
-export function InteractiveMap({ onMarkerPress, height = 300, initialLat = 47.92165474151632, initialLon = 106.91706877201796 }) {
+export function InteractiveMap({
+  onMarkerPress,
+  height = 300,
+  initialLat = 47.92165474151632,
+  initialLon = 106.91706877201796,
+}) {
   const [markerCoords, setMarkerCoords] = useState(null);
 
   const handleMapPress = (event) => {
@@ -3706,7 +3709,7 @@ export function OptionsView({ options, setToggle, theme }) {
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "rgba(0,0,0,0.5)",
+          backgroundColor: "rgba(0,0,0,0.8)",
         },
         layout.separate_vertical,
       ]}
@@ -3718,6 +3721,8 @@ export function OptionsView({ options, setToggle, theme }) {
             { backgroundColor: secondaryThemedBackgroundColor(theme) },
             format.radius,
             layout.margin_horizontal,
+            layout.center,
+            { maxWidth: 500 },
           ]}
         >
           {/* OPTIONS HERE */}
@@ -4809,18 +4814,20 @@ export async function function_Refund(paymentIntentID, amount, successFunc) {
 }
 export async function function_DownloadFileToDevice(fileUri) {
   try {
-    const fileUriParts = fileUri.split('.');
+    const fileUriParts = fileUri.split(".");
     const fileExtension = fileUriParts[fileUriParts.length - 1];
-    const downloadDest = `${FileSystem.documentDirectory}PhotoOPphoto-${randomString(20)}.${fileExtension}`;
+    const downloadDest = `${
+      FileSystem.documentDirectory
+    }PhotoOPphoto-${randomString(20)}.${fileExtension}`;
 
     const { uri } = await FileSystem.downloadAsync(fileUri, downloadDest);
-    console.log('File downloaded to:', uri);
+    console.log("File downloaded to:", uri);
     return uri;
   } catch (error) {
-    console.error('Error downloading file:', error);
+    console.error("Error downloading file:", error);
     return null;
   }
-};
+}
 export async function function_ShareFile(fileUri) {
   try {
     const isAvailable = await Sharing.isAvailableAsync();
@@ -4835,7 +4842,7 @@ export async function function_ShareFile(fileUri) {
   } catch (error) {
     console.error("Error sharing file:", error);
   }
-};
+}
 
 // STYLES
 export const format = StyleSheet.create({
@@ -5297,10 +5304,7 @@ export async function firebase_GetAllDocuments(
     }
   } else {
     if (whereField !== "" && whereField !== null && whereField !== undefined) {
-      queryRef = query(
-        queryRef,
-        where(whereField, whereCondition, whereValue),
-      );
+      queryRef = query(queryRef, where(whereField, whereCondition, whereValue));
     } else {
       queryRef = query(queryRef);
     }
@@ -5807,7 +5811,8 @@ export async function storage_UploadImage(
   setLoading,
   image,
   path,
-  setProgress
+  setProgress,
+  finished = false
 ) {
   setLoading(true);
   try {
@@ -5836,6 +5841,7 @@ export async function storage_UploadImage(
       },
       async () => {
         // Handle successful completion
+        finished(true);
         setProgress(0);
         setLoading(false); // Update loading state
       }
