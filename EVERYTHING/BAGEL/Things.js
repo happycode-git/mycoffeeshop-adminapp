@@ -90,7 +90,7 @@ export const searchClient = algoliasearch(
   "2DOEMGLWFB",
   "7cb8106771824a1a327f1e7cb9d81feb"
 );
-export const c_projectID = "178e14d8-0dce-4f61-8732-26291c7f545e";
+export const c_projectID = "06a1ba7e-35a3-4774-9aa0-af716d8645f7";
 export const c_googleMapsAPI = "AIzaSyD0y3c_it9f63AILxXHR-Y8YprSynEfxsY";
 export var me = {};
 export var myID = "test";
