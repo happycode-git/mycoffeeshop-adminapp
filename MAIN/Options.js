@@ -45,14 +45,14 @@ export function Options({ navigation, route }) {
       {/* TOP */}
       <View style={[layout.padding]}>
         <SeparatedView>
-          <TopFive title={"Select an option.."} />
+          <TopFive title={"Select an option.."} theme={theme} />
           <IconButtonTwo
             theme={theme}
             lightColor={"red"}
             darkColor={"red"}
             name={"log-out-outline"}
-            size={28}
-            padding={10}
+            size={30}
+            padding={12}
             onPress={onSignOut}
           />
         </SeparatedView>

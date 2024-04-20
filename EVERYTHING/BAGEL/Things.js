@@ -111,7 +111,7 @@ const firebaseConfig = {
   storageBucket: "coffeeshopapp-b639b.appspot.com",
   messagingSenderId: "147422283500",
   appId: "1:147422283500:web:660263371b6c6f95e487c9",
-  measurementId: "G-C7QVG6XZ8Q"
+  measurementId: "G-C7QVG6XZ8Q",
 };
 
 // APP INFO
@@ -475,7 +475,7 @@ export function ShowMoreView({ height, children, theme }) {
           <Text
             style={[
               {
-                fontSize: 12,
+                fontSize: 20,
                 textAlign: "center",
                 marginRight: 15,
                 color: secondaryThemedTextColor(theme),
@@ -785,7 +785,7 @@ export function TextView({
       style={[
         {
           color: color !== undefined ? color : themedTextColor(theme),
-          fontSize: size !== undefined ? size : 14,
+          fontSize: size !== undefined ? size : 20,
         },
         bold !== undefined && format.bold,
         center !== undefined && format.center_text,
@@ -1125,7 +1125,7 @@ export function TextFieldOne({
                 ? lightBackgroundColor
                 : darkBackgroundColor
               : secondaryThemedBackgroundColor(theme),
-          fontSize: textSize !== undefined ? textSize : 16,
+          fontSize: textSize !== undefined ? textSize : 20,
           borderRadius: radius !== undefined ? radius : 6,
           borderBottomColor:
             lightBorderColor !== undefined && darkBorderColor !== undefined
@@ -1229,7 +1229,7 @@ export function TextAreaOne({
           value={value}
           style={[
             {
-              fontSize: textSize !== undefined ? textSize : 16,
+              fontSize: textSize !== undefined ? textSize : 20,
               color:
                 lightTextColor !== undefined && darkTextColor !== undefined
                   ? theme === "light"
@@ -1314,7 +1314,7 @@ export function DropdownOne({
                       ? lightColor
                       : darkColor
                     : themedTextColor(theme),
-                fontSize: textSize !== undefined ? textSize : 14,
+                fontSize: textSize !== undefined ? textSize : 20,
               },
             ]}
           >
@@ -1322,7 +1322,7 @@ export function DropdownOne({
           </Text>
           <Ionicons
             name="chevron-down-outline"
-            size={iconSize !== undefined ? iconSize : 16}
+            size={iconSize !== undefined ? iconSize : 22}
             color={
               lightColor !== undefined && darkColor !== undefined
                 ? theme === "light"
@@ -1360,7 +1360,7 @@ export function DropdownOne({
                             ? lightColor
                             : darkColor
                           : themedTextColor(theme),
-                      fontSize: textSize !== undefined ? textSize : 14,
+                      fontSize: textSize !== undefined ? textSize : 20,
                     },
                   ]}
                 >
@@ -1545,7 +1545,7 @@ export function DatePicker({
                       ? lightTextColor
                       : darkTextColor
                     : themedTextColor(theme),
-                fontSize: textSize !== undefined ? textSize : 14,
+                fontSize: textSize !== undefined ? textSize : 20,
               },
               textStyles,
             ]}
@@ -1637,7 +1637,7 @@ export function TimePicker({
                       ? lightTextColor
                       : darkTextColor
                     : themedTextColor(theme),
-                fontSize: textSize !== undefined ? textSize : 14,
+                fontSize: textSize !== undefined ? textSize : 20,
               },
               textStyles,
             ]}
@@ -1688,7 +1688,7 @@ export function TextPill({
                   ? lightColor
                   : darkColor
                 : themedTextColor(theme),
-            fontSize: textSize !== undefined ? textSize : 12,
+            fontSize: textSize !== undefined ? textSize : 20,
           },
         ]}
       >
@@ -1923,7 +1923,7 @@ export function SegmentedPickerTwo({
                           ? selectedColor
                           : themedTextColor(theme)
                         : themedTextColor(theme),
-                    fontSize: textSize !== undefined ? textSize : 14,
+                    fontSize: textSize !== undefined ? textSize : 20,
                   },
                 ]}
               >

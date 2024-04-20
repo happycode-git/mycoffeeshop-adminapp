@@ -135,11 +135,11 @@ export function TopFour({
 export function TopFive({ title, caption, theme }) {
   return (
     <View style={[layout.padding_horizontal, layout.padding_vertical_small]}>
-      <TextView size={20} theme={theme}>
+      <TextView size={24} theme={theme}>
         {title !== undefined ? title : "Hello, Bagel!"}
       </TextView>
       {caption !== undefined && (
-        <TextView theme={theme} color={secondaryThemedTextColor(theme)}>
+        <TextView theme={theme} size={20} color={secondaryThemedTextColor(theme)}>
           {caption}
         </TextView>
       )}
@@ -156,11 +156,11 @@ export function TopSix({ title, caption, icon, onPress, theme }) {
       ]}
     >
       <View>
-        <TextView size={20} theme={theme}>
+        <TextView size={24} theme={theme}>
           {title !== undefined ? title : "Hello, Bagel!"}
         </TextView>
         {caption !== undefined && (
-          <TextView theme={theme} color={secondaryThemedTextColor(theme)}>
+          <TextView theme={theme} size={20} color={secondaryThemedTextColor(theme)}>
             {caption}
           </TextView>
         )}

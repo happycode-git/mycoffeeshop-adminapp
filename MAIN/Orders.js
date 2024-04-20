@@ -135,7 +135,7 @@ const [me, setMe] = useState({})
           theme={theme}
           value={section}
           setter={setSection}
-          textSize={20}
+          textSize={24}
           paddingV={14}
         />
         <Spacer height={10} />
@@ -144,7 +144,7 @@ const [me, setMe] = useState({})
             {section === "Preparing" && (
               <View>
                 {preparingOrders.length === 0 && (
-                  <TextView theme={theme}>No orders yet.</TextView>
+                  <TextView theme={theme} size={22}>No orders yet.</TextView>
                 )}
                 <View style={[layout.horizontal]}>
                   <Grid columns={3} gap={10}>
@@ -177,7 +177,7 @@ const [me, setMe] = useState({})
                           </TextView>
                           <TextView
                             theme={theme}
-                            size={18}
+                            size={20}
                             styles={[format.all_caps]}
                           >
                             {order.FullName}
@@ -224,10 +224,10 @@ const [me, setMe] = useState({})
                                     {item.ChosenOptions.map((opt, o) => {
                                       return (
                                         <SideBySide key={o}>
-                                          <TextView theme={theme} size={18}>
+                                          <TextView theme={theme} size={20}>
                                             {opt.Name}
                                           </TextView>
-                                          <TextView theme={theme} size={18}>
+                                          <TextView theme={theme} size={20}>
                                             {opt.OptionQuantity}x
                                           </TextView>
                                         </SideBySide>
@@ -248,7 +248,7 @@ const [me, setMe] = useState({})
             {section === "Ready" && (
               <View>
                 {readyOrders.length === 0 && (
-                  <TextView theme={theme}>No orders yet.</TextView>
+                  <TextView theme={theme} size={22}>No orders yet.</TextView>
                 )}
                 <View style={[layout.horizontal]}>
                   <Grid columns={3} gap={10}>
@@ -282,7 +282,7 @@ const [me, setMe] = useState({})
                           </TextView>
                           <TextView
                             theme={theme}
-                            size={18}
+                            size={20}
                             styles={[format.all_caps]}
                           >
                             {order.FullName}
@@ -330,10 +330,10 @@ const [me, setMe] = useState({})
                                       return (
                                         <View key={o}>
                                           <SideBySide>
-                                            <TextView theme={theme} size={18}>
+                                            <TextView theme={theme} size={20}>
                                               {opt.Name}
                                             </TextView>
-                                            <TextView theme={theme} size={18}>
+                                            <TextView theme={theme} size={20}>
                                               {opt.OptionQuantity}x
                                             </TextView>
                                           </SideBySide>
@@ -388,7 +388,7 @@ const [me, setMe] = useState({})
                           </TextView>
                           <TextView
                             theme={theme}
-                            size={18}
+                            size={20}
                             styles={[format.all_caps]}
                           >
                             {order.FullName}

@@ -87,7 +87,7 @@ export function Login({ navigation, route }) {
               <View>
                 <TextView
                   theme={theme}
-                  size={16}
+                  size={20}
                   styles={[layout.padding_vertical_small]}
                 >
                   Email
@@ -102,7 +102,7 @@ export function Login({ navigation, route }) {
               <View>
                 <TextView
                   theme={theme}
-                  size={16}
+                  size={20}
                   styles={[layout.padding_vertical_small]}
                 >
                   Password
@@ -122,7 +122,7 @@ export function Login({ navigation, route }) {
                   onPress={onSignIn}
                 >
                   <View style={[layout.padding_horizontal]}>
-                    <TextView theme={theme} size={18}>
+                    <TextView theme={theme} size={22}>
                       Log In
                     </TextView>
                   </View>

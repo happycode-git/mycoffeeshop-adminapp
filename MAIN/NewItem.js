@@ -44,7 +44,7 @@ export function NewItem({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
-  const [me, setMe] = useState({})
+  const [me, setMe] = useState({});
   //
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -88,16 +88,13 @@ export function NewItem({ navigation, route }) {
           text: "Proceed",
           style: "default",
           onPress: () => {
-            setLoading(true)
+            setLoading(true);
             const imagePath = `Images/${randomString(25)}.jpg`;
             const itemID = randomString(25);
             const args = {
               Name: name,
               Description: desc.replaceAll("\n", "jjj"),
-              Category:
-                categoryText !== ""
-                  ? categoryText
-                  : category,
+              Category: categoryText !== "" ? categoryText : category,
               Price: parseFloat(price),
               Featured: featured,
               SoldOut: soldOut,
@@ -112,10 +109,12 @@ export function NewItem({ navigation, route }) {
                 imagePath,
                 setProgress
               ).then(() => {
-                firebase_CreateDocument(args, `Items-${me.id}`, itemID).then(() => {
-                  // setItems((prev) => [...prev, { id: itemID, ...args }]);
-                  navigation.navigate("menu");
-                });
+                firebase_CreateDocument(args, `Items-${me.id}`, itemID).then(
+                  () => {
+                    // setItems((prev) => [...prev, { id: itemID, ...args }]);
+                    navigation.navigate("menu");
+                  }
+                );
               });
             }
           },
@@ -193,10 +192,10 @@ export function NewItem({ navigation, route }) {
     const tempArr = items.map((ting) => {
       return ting.Category;
     });
-    setCategories(tempArr);
+    setCategories(removeDuplicates(tempArr));
     getInDevice("user", (person) => {
-      setMe(person)
-    })
+      setMe(person);
+    });
   }, []);
 
   return (
@@ -224,14 +223,17 @@ export function NewItem({ navigation, route }) {
                     padding={12}
                     onPress={onCreateItem}
                   >
-                    <TextView theme={theme} color={"white"} size={18}>
-                      Create Item
-                    </TextView>
+                    <View style={[layout.padding_horizontal]}>
+                      <TextView theme={theme} color={"white"} size={22}>
+                        Create Item
+                      </TextView>
+                    </View>
                   </ButtonOne>
                 )}
               <IconButtonTwo
                 name={"close-outline"}
-                size={28}
+                size={32}
+                padding={14}
                 theme={theme}
                 onPress={() => {
                   Alert.alert(
@@ -266,7 +268,7 @@ export function NewItem({ navigation, route }) {
                     layout.padding_vertical_small,
                     layout.padding_horizontal,
                   ]}
-                  size={18}
+                  size={22}
                 >
                   Name
                 </TextView>
@@ -276,12 +278,14 @@ export function NewItem({ navigation, route }) {
                   setter={setName}
                   theme={theme}
                   radius={0}
+                  textSize={24}
+                  paddingV={14}
                 />
                 <Spacer height={10} />
               </View>
               <View>
                 <TextView
-                  size={18}
+                  size={22}
                   theme={theme}
                   styles={[
                     layout.padding_vertical_small,
@@ -298,13 +302,15 @@ export function NewItem({ navigation, route }) {
                   setter={setDesc}
                   theme={theme}
                   radius={0}
+                  textSize={24}
+                  paddingV={14}
                 />
                 <Spacer height={10} />
               </View>
               <Grid columns={2} gap={10}>
                 <View>
                   <TextView
-                    size={18}
+                    size={22}
                     theme={theme}
                     styles={[
                       layout.padding_vertical_small,
@@ -320,8 +326,8 @@ export function NewItem({ navigation, route }) {
                       options={["Add New Category", ...categories]}
                       theme={theme}
                       radius={0}
-                      textSize={16}
-                      padding={18}
+                      textSize={24}
+                      padding={14}
                     />
                   )}
                   {(categories.length === 0 ||
@@ -332,13 +338,15 @@ export function NewItem({ navigation, route }) {
                       setter={setCategoryText}
                       theme={theme}
                       radius={0}
+                      textSize={24}
+                      paddingV={14}
                     />
                   )}
                   <Spacer height={10} />
                 </View>
                 <View>
                   <TextView
-                    size={18}
+                    size={22}
                     theme={theme}
                     styles={[
                       layout.padding_vertical_small,
@@ -354,6 +362,8 @@ export function NewItem({ navigation, route }) {
                     theme={theme}
                     radius={0}
                     isNum={true}
+                    textSize={24}
+                    paddingV={14}
                   />
                   <Spacer height={10} />
                 </View>
@@ -363,15 +373,17 @@ export function NewItem({ navigation, route }) {
                   text={"Is this item sold out, or not available."}
                   setter={setSoldOut}
                   value={soldOut}
-                  textSize={18}
                   theme={theme}
+                  checkSize={14}
+                  textSize={24}
                 />
                 <Spacer height={10} />
                 <CheckboxOne
                   text={"Do you want to feature this item?"}
                   setter={setFeatured}
                   value={featured}
-                  textSize={18}
+                  checkSize={14}
+                  textSize={24}
                   theme={theme}
                 />
               </View>
@@ -387,10 +399,10 @@ export function NewItem({ navigation, route }) {
               ></View>
               <Spacer height={10} />
               <View style={[layout.padding_horizontal]}>
-                <TextView theme={theme} size={22}>
+                <TextView theme={theme} size={24}>
                   Custom Options
                 </TextView>
-                <TextView theme={theme}>
+                <TextView theme={theme} size={20}>
                   Customize menu items that you want to add to this
                 </TextView>
                 <Spacer height={10} />
@@ -406,7 +418,7 @@ export function NewItem({ navigation, route }) {
                       }}
                     >
                       <View style={[layout.padding_horizontal]}>
-                        <TextView theme={theme} center={true} size={17}>
+                        <TextView theme={theme} center={true} size={22}>
                           New Option
                         </TextView>
                       </View>
@@ -432,7 +444,7 @@ export function NewItem({ navigation, route }) {
                         <View>
                           <TextView
                             theme={theme}
-                            size={14}
+                            size={22}
                             styles={[layout.padding_vertical_small]}
                           >
                             Sub Category
@@ -448,8 +460,8 @@ export function NewItem({ navigation, route }) {
                             setter={setOptionCategory}
                             radius={0}
                             theme={theme}
-                            textSize={16}
-                            padding={18}
+                            textSize={24}
+                            padding={14}
                           />
                         </View>
                       )}
@@ -459,7 +471,7 @@ export function NewItem({ navigation, route }) {
                         <View>
                           <TextView
                             theme={theme}
-                            size={14}
+                            size={22}
                             styles={[layout.padding_vertical_small]}
                           >
                             Sub Category
@@ -469,6 +481,8 @@ export function NewItem({ navigation, route }) {
                             value={optionCategoryText}
                             setter={setOptionCategoryText}
                             radius={0}
+                            textSize={24}
+                            paddingV={14}
                           />
                         </View>
                       )}
@@ -477,7 +491,7 @@ export function NewItem({ navigation, route }) {
                       <View>
                         <TextView
                           theme={theme}
-                          size={14}
+                          size={22}
                           styles={[layout.padding_vertical_small]}
                         >
                           Option Name
@@ -487,12 +501,14 @@ export function NewItem({ navigation, route }) {
                           value={optionName}
                           setter={setOptionName}
                           radius={0}
+                          textSize={24}
+                          paddingV={14}
                         />
                       </View>
                       <View>
                         <TextView
                           theme={theme}
-                          size={14}
+                          size={22}
                           styles={[layout.padding_vertical_small]}
                         >
                           Adjusted Amount
@@ -503,6 +519,8 @@ export function NewItem({ navigation, route }) {
                           setter={setOptionAmount}
                           radius={0}
                           isNum={true}
+                          textSize={24}
+                          paddingV={14}
                         />
                       </View>
                     </Grid>
@@ -511,6 +529,8 @@ export function NewItem({ navigation, route }) {
                         value={optionShowOption}
                         setter={setOptionShowOption}
                         text={"Do you want to show the amount to the customer?"}
+                        checkSize={14}
+                        textSize={24}
                       />
                       <CheckboxOne
                         value={optionShowMultiple}
@@ -518,11 +538,15 @@ export function NewItem({ navigation, route }) {
                         text={
                           "Should the customer be able to choose higher quantity?"
                         }
+                        checkSize={14}
+                        textSize={24}
                       />
                       <CheckboxOne
                         value={optionRequire}
                         setter={setOptionRequire}
                         text={"Is this custom option required?"}
+                        checkSize={14}
+                        textSize={24}
                       />
                     </View>
                     <Spacer height={10} />
@@ -549,7 +573,7 @@ export function NewItem({ navigation, route }) {
                                 theme={theme}
                                 color={themedTextColor(theme)}
                                 center={true}
-                                size={16}
+                                size={22}
                               >
                                 Close
                               </TextView>
@@ -615,7 +639,7 @@ export function NewItem({ navigation, route }) {
                         <View>
                           <TextView
                             theme={theme}
-                            size={14}
+                            size={22}
                             styles={[layout.padding_vertical_small]}
                           >
                             Sub Category
@@ -631,8 +655,8 @@ export function NewItem({ navigation, route }) {
                             setter={setOptionEditCategory}
                             radius={0}
                             theme={theme}
-                            textSize={16}
-                            padding={18}
+                            textSize={24}
+                            padding={14}
                           />
                         </View>
                       )}
@@ -642,7 +666,7 @@ export function NewItem({ navigation, route }) {
                         <View>
                           <TextView
                             theme={theme}
-                            size={14}
+                            size={22}
                             styles={[layout.padding_vertical_small]}
                           >
                             Type New Sub Category
@@ -652,6 +676,8 @@ export function NewItem({ navigation, route }) {
                             value={optionEditCategoryText}
                             setter={setOptionEditCategoryText}
                             radius={0}
+                            textSize={24}
+                            paddingV={14}
                           />
                         </View>
                       )}
@@ -662,7 +688,7 @@ export function NewItem({ navigation, route }) {
                       <View>
                         <TextView
                           theme={theme}
-                          size={14}
+                          size={22}
                           styles={[layout.padding_vertical_small]}
                         >
                           Option Name
@@ -672,12 +698,14 @@ export function NewItem({ navigation, route }) {
                           value={optionEditName}
                           setter={setOptionEditName}
                           radius={0}
+                          textSize={24}
+                          paddingV={14}
                         />
                       </View>
                       <View>
                         <TextView
                           theme={theme}
-                          size={14}
+                          size={22}
                           styles={[layout.padding_vertical_small]}
                         >
                           Adjusted Amount
@@ -688,6 +716,8 @@ export function NewItem({ navigation, route }) {
                           setter={setOptionEditAmount}
                           radius={0}
                           isNum={true}
+                          textSize={24}
+                          paddingV={14}
                         />
                       </View>
                     </Grid>
@@ -696,6 +726,8 @@ export function NewItem({ navigation, route }) {
                         value={optionEditShowOption}
                         setter={setOptionEditShowOption}
                         text={"Do you want to show the amount to the customer?"}
+                        checkSize={14}
+                        textSize={24}
                       />
                       <CheckboxOne
                         value={optionEditShowMultiple}
@@ -703,11 +735,15 @@ export function NewItem({ navigation, route }) {
                         text={
                           "Should the customer be able to choose higher quantity?"
                         }
+                        checkSize={14}
+                        textSize={24}
                       />
                       <CheckboxOne
                         value={optionEditRequire}
                         setter={setOptionEditRequire}
                         text={"Is this custom option required?"}
+                        checkSize={14}
+                        textSize={24}
                       />
                     </View>
                     <Spacer height={10} />
@@ -734,7 +770,7 @@ export function NewItem({ navigation, route }) {
                                 theme={theme}
                                 color={themedTextColor(theme)}
                                 center={true}
-                                size={16}
+                                size={22}
                               >
                                 Close
                               </TextView>
@@ -769,7 +805,7 @@ export function NewItem({ navigation, route }) {
                                     theme={theme}
                                     color={"white"}
                                     center={true}
-                                    size={16}
+                                    size={22}
                                   >
                                     Save Changes
                                   </TextView>
@@ -788,14 +824,14 @@ export function NewItem({ navigation, route }) {
                     <TouchableOpacity key={i}>
                       <SeparatedView>
                         <View>
-                          <TextView theme={theme} size={16} color={"#1BA8FF"}>
+                          <TextView theme={theme} size={22} color={"#1BA8FF"}>
                             {opt.SubCategory}
                           </TextView>
                           <SideBySide gap={20}>
-                            <TextView theme={theme} size={20}>
+                            <TextView theme={theme} size={24}>
                               {opt.Name}
                             </TextView>
-                            <TextView theme={theme} size={20}>
+                            <TextView theme={theme} size={24}>
                               + ${opt.Amount.toFixed(2)}
                             </TextView>
                           </SideBySide>
@@ -805,6 +841,7 @@ export function NewItem({ navigation, route }) {
                             <IconButtonTwo
                               theme={theme}
                               padding={6}
+                              size={32}
                               name={"close-outline"}
                               lightBackground={"#D6133B"}
                               darkBackground={"#D6133B"}
@@ -815,6 +852,7 @@ export function NewItem({ navigation, route }) {
                             <IconButtonTwo
                               theme={theme}
                               padding={6}
+                              size={32}
                               name={"pencil-outline"}
                               lightBackground={"#2F70D5"}
                               darkBackground={"#2F70D5"}
@@ -832,20 +870,17 @@ export function NewItem({ navigation, route }) {
             </View>
             {/* RIGHT */}
             <View>
-              <Spacer height={15} />
+              <Spacer height={20} />
               {image !== null && (
-                <Image
-                  source={{ uri: image }}
-                  height={height * 0.7}
-                />
+                <Image source={{ uri: image }} height={height * 0.7} />
               )}
               <Grid columns={2} gap={15}>
-                <ButtonOne backgroundColor={"black"} radius={0} padding={14}>
+                <ButtonOne backgroundColor={"black"} radius={0} padding={16}>
                   <TextView
                     theme={theme}
                     color={"white"}
                     center={true}
-                    size={20}
+                    size={24}
                   >
                     Take Photo
                   </TextView>
@@ -853,12 +888,12 @@ export function NewItem({ navigation, route }) {
                 <ButtonOne
                   backgroundColor={secondaryThemedBackgroundColor(theme)}
                   radius={0}
-                  padding={14}
+                  padding={16}
                   onPress={() => {
                     function_PickImage(setLoading, setImage, (img) => {});
                   }}
                 >
-                  <TextView theme={theme} center={true} size={20}>
+                  <TextView theme={theme} center={true} size={24}>
                     Choose Photo
                   </TextView>
                 </ButtonOne>

@@ -148,8 +148,8 @@ export function Rewards({ navigation, route }) {
           <View
             style={[{ flexDirection: "row", alignItems: "flex-end", gap: 12 }]}
           >
-            <View style={[{ width: 300 }]}>
-              <TextView theme={theme} styles={[layout.padding_vertical_small]}>
+            <View style={[{ width: 400 }]}>
+              <TextView theme={theme} size={22} styles={[layout.padding_vertical_small]}>
                 Category
               </TextView>
               <DropdownOne
@@ -169,12 +169,12 @@ export function Rewards({ navigation, route }) {
                 value={category}
                 setter={setCategory}
                 theme={theme}
-                textSize={14}
+                textSize={24}
                 padding={14}
               />
             </View>
             <View style={[{ width: 300 }]}>
-              <TextView theme={theme} styles={[layout.padding_vertical_small]}>
+              <TextView theme={theme} size={22} styles={[layout.padding_vertical_small]}>
                 Amount of Points
               </TextView>
               <TextFieldOne
@@ -182,7 +182,8 @@ export function Rewards({ navigation, route }) {
                 isNum={true}
                 value={points}
                 setter={setPoints}
-                paddingV={10}
+                textSize={24}
+                paddingV={14}
                 theme={theme}
               />
             </View>
@@ -194,7 +195,7 @@ export function Rewards({ navigation, route }) {
                   onCreateReward();
                 }}
               >
-                <TextView theme={theme} color={"white"}>
+                <TextView theme={theme} color={"white"} size={22}>
                   Create Reward
                 </TextView>
               </ButtonOne>
@@ -209,10 +210,10 @@ export function Rewards({ navigation, route }) {
               <View key={i} style={[{ maxWidth: 500 }]}>
                 <SeparatedView>
                   <View>
-                    <TextView theme={theme} size={24}>
+                    <TextView theme={theme} size={26}>
                       {reward.Category}
                     </TextView>
-                    <TextView theme={theme} color={"#1BA8FF"} size={18}>
+                    <TextView theme={theme} color={"#1BA8FF"} size={22}>
                       {reward.Points} points for free item
                     </TextView>
                   </View>
@@ -220,7 +221,7 @@ export function Rewards({ navigation, route }) {
                     name={"remove-circle-outline"}
                     lightColor={"red"}
                     darkColor={"red"}
-                    size={26}
+                    size={40}
                     onPress={() => {
                       onRemoveReward(reward);
                     }}

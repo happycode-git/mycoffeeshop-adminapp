@@ -176,7 +176,7 @@ export function Updates({ navigation, route }) {
               <View>
                 <TextView
                   theme={theme}
-                  size={18}
+                  size={22}
                   styles={[layout.padding_vertical_small]}
                 >
                   Choose a thumbnail image
@@ -191,7 +191,7 @@ export function Updates({ navigation, route }) {
                     function_PickImage(setLoading, setImage, image);
                   }}
                 >
-                  <Icon theme={theme} name={"add-outline"} size={60} />
+                  <Icon theme={theme} name={"add-outline"} size={70} />
                 </TouchableOpacity>
                 <Spacer height={10} />
                 {image !== null && (
@@ -203,7 +203,7 @@ export function Updates({ navigation, route }) {
                 <Spacer height={10} />
                 <TextView
                   theme={theme}
-                  size={18}
+                  size={22}
                   styles={[layout.padding_vertical_small]}
                 >
                   Title
@@ -213,11 +213,13 @@ export function Updates({ navigation, route }) {
                   value={title}
                   setter={setTitle}
                   theme={theme}
+                  textSize={24}
+                  paddingV={14}
                 />
                 <Spacer height={10} />
                 <TextView
                   theme={theme}
-                  size={18}
+                  size={22}
                   styles={[layout.padding_vertical_small]}
                 >
                   Text
@@ -227,6 +229,8 @@ export function Updates({ navigation, route }) {
                   placeholder={"Type your update here..."}
                   value={text}
                   setter={setText}
+                  textSize={24}
+                  paddingV={14}
                 />
                 <Spacer height={20} />
                 {image !== null && text !== "" && title !== "" && (
@@ -240,7 +244,7 @@ export function Updates({ navigation, route }) {
                     <View style={[layout.padding_horizontal]}>
                       <TextView
                         theme={theme}
-                        size={18}
+                        size={22}
                         color={"white"}
                         center={true}
                       >
@@ -252,7 +256,7 @@ export function Updates({ navigation, route }) {
               </View>
               {/* LEFT */}
               <View style={[layout.horizontal]}>
-                <Grid columns={2} gap={10}>
+                <Grid columns={1} gap={10}>
                   {updates.map((update, i) => {
                     return (
                       <View key={i}>
@@ -263,15 +267,15 @@ export function Updates({ navigation, route }) {
                               : "Images/coffee.jpg"
                           }
                           width={"100%"}
-                          height={width * 0.25}
+                          height={width * 0.4}
                         />
                         <View style={[layout.padding_vertical_small]}>
-                          <TextView theme={theme} size={22}>
+                          <TextView theme={theme} size={26}>
                             {update.Title}
                           </TextView>
                           <TextView
                             theme={theme}
-                            size={18}
+                            size={22}
                             color={secondaryThemedTextColor(theme)}
                           >
                             {formatLongDate(
@@ -281,7 +285,7 @@ export function Updates({ navigation, route }) {
                           <ShowMoreView height={100} theme={theme}>
                             <TextView
                               theme={theme}
-                              size={16}
+                              size={20}
                               styles={[layout.padding_vertical]}
                             >
                               {update.Text.replaceAll("jjj", "\n")}

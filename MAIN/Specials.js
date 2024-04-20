@@ -142,7 +142,7 @@ export function Specials({ navigation, route }) {
             style={[layout.horizontal, { gap: 14, alignItems: "flex-end" }]}
           >
             <View style={[{ width: 400 }]}>
-              <TextView theme={theme}>Item</TextView>
+              <TextView theme={theme} size={22}>Item</TextView>
               <DropdownOne
                 options={[
                   "Select One",
@@ -152,10 +152,12 @@ export function Specials({ navigation, route }) {
                 ]}
                 value={chosenItem}
                 setter={setChosenItem}
+                textSize={24}
+                padding={14}
               />
             </View>
-            <View style={[{ width: 150 }]}>
-              <TextView theme={theme} styles={[layout.padding_vertical_small]}>
+            <View style={[{ width: 250 }]}>
+              <TextView theme={theme} size={22} styles={[layout.padding_vertical_small]}>
                 Start Date
               </TextView>
               <DatePicker
@@ -164,10 +166,12 @@ export function Specials({ navigation, route }) {
                 theme={theme}
                 lightBackgroundColor={themedBackgroundColor(theme)}
                 darkBackgroundColor={themedBackgroundColor(theme)}
+                textSize={24}
+                padding={14}
               />
             </View>
-            <View style={[{ width: 150 }]}>
-              <TextView theme={theme} styles={[layout.padding_vertical_small]}>
+            <View style={[{ width: 250 }]}>
+              <TextView theme={theme} size={22} styles={[layout.padding_vertical_small]}>
                 End Date
               </TextView>
               <DatePicker
@@ -176,10 +180,12 @@ export function Specials({ navigation, route }) {
                 theme={theme}
                 lightBackgroundColor={themedBackgroundColor(theme)}
                 darkBackgroundColor={themedBackgroundColor(theme)}
+                textSize={24}
+                padding={14}
               />
             </View>
-            <View style={[{ width: 150 }]}>
-              <TextView theme={theme} styles={[layout.padding_vertical_small]}>
+            <View style={[{ width: 250 }]}>
+              <TextView theme={theme} size={22} styles={[layout.padding_vertical_small]}>
                 Discount Percentage
               </TextView>
               <TextFieldOne
@@ -188,22 +194,29 @@ export function Specials({ navigation, route }) {
                 isNum={true}
                 value={percentage}
                 setter={setPercentage}
+                textSize={24}
+                paddingV={14}
               />
             </View>
-            <View style={[{ width: 150 }]}>
+            
+          </View>
+          <SeparatedView>
+            <View></View>
+            <View style={[{ width: 350 }]}>
+            <Spacer height={20} />
               {chosenItem !== "Select One" && percentage !== "" && (
                 <ButtonOne
                   backgroundColor={"#1BA8FF"}
                   radius={100}
                   onPress={onCreateSpecial}
                 >
-                  <TextView theme={theme} color={"white"} center={true}>
+                  <TextView theme={theme} color={"white"} size={22} center={true}>
                     Create Special
                   </TextView>
                 </ButtonOne>
               )}
             </View>
-          </View>
+          </SeparatedView>
         </View>
         <View>
           <View style={[layout.padding]}>
@@ -213,14 +226,14 @@ export function Specials({ navigation, route }) {
                   <View key={i} style={[{ width: 650 }]}>
                     <SeparatedView>
                       <View>
-                        <TextView theme={theme} size={22}>
+                        <TextView theme={theme} size={26}>
                           {special.Percentage}% OFF -{" "}
                           {
                             items.find((ting) => ting.id === special.ItemID)
                               .Name
                           }
                         </TextView>
-                        <TextView theme={theme} size={18}>
+                        <TextView theme={theme} size={22}>
                           {formatDate(
                             new Date(special.StartDate.seconds * 1000)
                           )}{" "}
@@ -232,7 +245,7 @@ export function Specials({ navigation, route }) {
                         name={"remove-circle-outline"}
                         lightColor={"red"}
                         darkColor={"red"}
-                        size={32}
+                        size={40}
                         onPress={() => {
                           onRemoveSpecial(special);
                         }}

@@ -157,7 +157,7 @@ export function Menu({ navigation, route }) {
                           <View>
                             <TextPill
                               text={item.Name}
-                              textSize={16}
+                              textSize={20}
                               theme={theme}
                             />
                           </View>

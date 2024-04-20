@@ -87,7 +87,7 @@ export function SalesReport({ navigation, route }) {
       {/* BODY */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[layout.padding_horizontal]}>
-          <TextView theme={theme} size={18}>
+          <TextView theme={theme} size={22}>
             Pick A Date:
           </TextView>
           <Spacer height={10} />
@@ -96,7 +96,7 @@ export function SalesReport({ navigation, route }) {
               theme={theme}
               date={date}
               setDate={setDate}
-              textSize={22}
+              textSize={24}
             />
           </View>
           <Spacer height={15} />
@@ -120,7 +120,7 @@ export function SalesReport({ navigation, route }) {
                     >
                       <TextView
                         theme={theme}
-                        size={24}
+                        size={26}
                         bold={true}
                         styles={[format.all_caps]}
                       >
@@ -132,12 +132,12 @@ export function SalesReport({ navigation, route }) {
                           return (
                             <View key={it}>
                               <SideBySide>
-                                <TextView size={22} theme={theme}>
+                                <TextView size={26} theme={theme}>
                                   {item.Quantity}x
                                 </TextView>
 
                                 <TextView
-                                  size={22}
+                                  size={24}
                                   theme={theme}
                                   styles={[{ width: "85%" }]}
                                 >

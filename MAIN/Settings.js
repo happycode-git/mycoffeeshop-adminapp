@@ -248,7 +248,7 @@ export function Settings({ navigation, route }) {
             }}
           >
             <View style={[layout.padding_horizontal]}>
-              <TextView size={18} theme={theme} color={"white"}>
+              <TextView size={22} theme={theme} color={"white"}>
                 Update
               </TextView>
             </View>
@@ -263,7 +263,7 @@ export function Settings({ navigation, route }) {
               <View style={[{ width: 350 }]}>
                 <TextView
                   theme={theme}
-                  size={18}
+                  size={22}
                   styles={[layout.padding_vertical_small]}
                 >
                   Points Per Dollar
@@ -274,12 +274,14 @@ export function Settings({ navigation, route }) {
                   value={points}
                   setter={setPoints}
                   isNum={true}
+                  textSize={24}
+                  paddingV={14}
                 />
               </View>
               <View style={[{ width: 350 }]}>
                 <TextView
                   theme={theme}
-                  size={18}
+                  size={22}
                   styles={[layout.padding_vertical_small]}
                 >
                   Tax Percentage
@@ -290,14 +292,16 @@ export function Settings({ navigation, route }) {
                   value={tax}
                   setter={setTax}
                   isNum={true}
+                  textSize={24}
+                  paddingV={14}
                 />
               </View>
               <View style={[{ width: 350 }]}>
                 <View style={[layout.padding_vertical_small]}>
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     Max Points
                   </TextView>
-                  <TextView theme={theme}>
+                  <TextView theme={theme} size={20}>
                     Set the maximum number of points a customer should be able
                     to accumulate. Set to 0 if there is no limit.
                   </TextView>
@@ -308,16 +312,18 @@ export function Settings({ navigation, route }) {
                   value={maxPoints}
                   setter={setMaxPoints}
                   isNum={true}
+                  textSize={24}
+                  paddingV={14}
                 />
               </View>
             </View>
-            <View style={[{ width: 350 }]}>
-              <View style={[layout.padding_horizontal]}>
-                <TextView theme={theme} size={18}>
+            <View>
+              <View>
+                <TextView theme={theme} size={22}>
                   Theme
                 </TextView>
                 <SideBySide>
-                  <TextView theme={theme}>Dark</TextView>
+                  <TextView theme={theme} size={26}>Dark</TextView>
                   <SwitchOne
                     theme={theme}
                     toggledOffColor={secondaryThemedBackgroundColor(theme)}
@@ -333,14 +339,14 @@ export function Settings({ navigation, route }) {
                       });
                     }}
                   />
-                  <TextView theme={theme}>Light</TextView>
+                  <TextView theme={theme} size={26}>Light</TextView>
                 </SideBySide>
               </View>
               <View style={[layout.padding_vertical_small]}>
-                <TextView theme={theme} size={18}>
+                <TextView theme={theme} size={22}>
                   Shop Hours
                 </TextView>
-                <TextView theme={theme}>
+                <TextView theme={theme} size={20}>
                   Set your shop hours so customers wont create orders while the
                   shop is closed.
                 </TextView>
@@ -348,143 +354,157 @@ export function Settings({ navigation, route }) {
               {/* DAYS OF THE WEEK */}
               <View style={[{ gap: 6 }]}>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Monday
                   </TextView>
                   <TimePicker
                     time={mondayStart}
                     setTime={setMondayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={mondayEnd}
                     setTime={setMondayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Tuesday
                   </TextView>
                   <TimePicker
                     time={tuesdayStart}
                     setTime={setTuesdayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={tuesdayEnd}
                     setTime={setTuesdayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Wednesday
                   </TextView>
                   <TimePicker
                     time={wednesdayStart}
                     setTime={setWednesdayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={wednesdayEnd}
                     setTime={setWednesdayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Thursday
                   </TextView>
                   <TimePicker
                     time={thursdayStart}
                     setTime={setThursdayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={thursdayEnd}
                     setTime={setThursdayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Friday
                   </TextView>
                   <TimePicker
                     time={fridayStart}
                     setTime={setFridayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={fridayEnd}
                     setTime={setFridayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Saturday
                   </TextView>
                   <TimePicker
                     time={saturdayStart}
                     setTime={setSaturdayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={saturdayEnd}
                     setTime={setSaturdayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
                 <SideBySide>
-                  <TextView theme={theme} size={18} color={"#117DFA"}>
+                  <TextView theme={theme} size={22} color={"#117DFA"}>
                     Sunday
                   </TextView>
                   <TimePicker
                     time={sundayStart}
                     setTime={setSundayStart}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
-                  <TextView theme={theme} size={18}>
+                  <TextView theme={theme} size={22}>
                     to
                   </TextView>
                   <TimePicker
                     time={sundayEnd}
                     setTime={setSundayEnd}
                     theme={theme}
-                    textSize={18}
+                    textSize={24}
+                    textStyles={[layout.padding_horizontal]}
                   />
                 </SideBySide>
               </View>
