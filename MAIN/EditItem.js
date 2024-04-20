@@ -49,6 +49,7 @@ export function EditItem({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  const [me, setMe] = useState({})
   //
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -116,7 +117,7 @@ export function EditItem({ navigation, route }) {
                 (finished) => {
                   if (finished) {
                     storage_DeleteImage(setLoading, chosenItem.ImagePath);
-                    firebase_UpdateDocument(setLoading, "Items", itemID, args);
+                    firebase_UpdateDocument(setLoading, `Items-${me.id}`, itemID, args);
                     setItems((prev) =>
                       prev.map((item) =>
                         item.id === itemID ? { id: itemID, ...args } : item
@@ -204,7 +205,7 @@ export function EditItem({ navigation, route }) {
         const itemID = chosenItem.id
         const imagePath = chosenItem.ImagePath
         storage_DeleteImage(setLoading, imagePath)
-        firebase_DeleteDocument(setLoading, "Items", itemID).then(() => {
+        firebase_DeleteDocument(setLoading, `Items-${me.id}`, itemID).then(() => {
           navigation.navigate("menu")
         })
       }}
@@ -215,7 +216,7 @@ export function EditItem({ navigation, route }) {
       {text: "Cancel", style: "cancel"},
       {text: "Duplicate", style: "default", onPress: () => {
         setLoading(true)
-            const imagePath = `Images/${randomString(25)}.jpg`;
+            const imagePath = `Images/${randomString(12)}.jpg`;
             const itemID = randomString(25);
             const args = {
               Name: `${name} copy`,
@@ -238,7 +239,7 @@ export function EditItem({ navigation, route }) {
                 imagePath,
                 setProgress
               ).then(() => {
-                firebase_CreateDocument(args, "Items", itemID).then(() => {
+                firebase_CreateDocument(args, `Items-${me.id}`, itemID).then(() => {
                   // setItems((prev) => [...prev, { id: itemID, ...args }]);
                   navigation.navigate("menu");
                 });
@@ -266,6 +267,10 @@ export function EditItem({ navigation, route }) {
     setOptions(chosenItem.Options);
     const thing = chosenItem.ImagePath;
     storage_DownloadFile(setLoading, thing, setImage);
+
+    getInDevice("user", (person) => {
+      setMe(person)
+    })
   }, [items]);
 
   return (

@@ -42,6 +42,9 @@ export function Updates({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  //
+  const [me, setMe] = useState({});
+
   const [progress, setProgress] = useState(0);
   const [updates, setUpdates] = useState([]);
 
@@ -87,7 +90,7 @@ export function Updates({ navigation, route }) {
                               ImagePath: imagePath,
                               Date: new Date(),
                             },
-                            "Updates",
+                            `Updates-${me.id}`,
                             randomString(25)
                           ).then(() => {
                             //
@@ -117,23 +120,26 @@ export function Updates({ navigation, route }) {
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocumentsListenerOrdered(
-      setLoading,
-      "Updates",
-      setUpdates,
-      50,
-      "desc",
-      "Date",
-      "",
-      "",
-      "",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
+    getInDevice("user", (person) => {
+      setMe(person)
+      firebase_GetAllDocumentsListenerOrdered(
+        setLoading,
+        `Updates-${person.id}`,
+        setUpdates,
+        50,
+        "desc",
+        "Date",
+        "",
+        "",
+        "",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+    });
   }, []);
 
   return (
@@ -263,8 +269,14 @@ export function Updates({ navigation, route }) {
                           <TextView theme={theme} size={22}>
                             {update.Title}
                           </TextView>
-                          <TextView theme={theme} size={18} color={secondaryThemedTextColor(theme)}>
-                            {formatLongDate(new Date(update.Date.seconds * 1000))}
+                          <TextView
+                            theme={theme}
+                            size={18}
+                            color={secondaryThemedTextColor(theme)}
+                          >
+                            {formatLongDate(
+                              new Date(update.Date.seconds * 1000)
+                            )}
                           </TextView>
                           <ShowMoreView height={100} theme={theme}>
                             <TextView

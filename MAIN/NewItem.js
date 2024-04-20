@@ -44,6 +44,7 @@ export function NewItem({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  const [me, setMe] = useState({})
   //
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -111,7 +112,7 @@ export function NewItem({ navigation, route }) {
                 imagePath,
                 setProgress
               ).then(() => {
-                firebase_CreateDocument(args, "Items", itemID).then(() => {
+                firebase_CreateDocument(args, `Items-${me.id}`, itemID).then(() => {
                   // setItems((prev) => [...prev, { id: itemID, ...args }]);
                   navigation.navigate("menu");
                 });
@@ -193,6 +194,9 @@ export function NewItem({ navigation, route }) {
       return ting.Category;
     });
     setCategories(tempArr);
+    getInDevice("user", (person) => {
+      setMe(person)
+    })
   }, []);
 
   return (

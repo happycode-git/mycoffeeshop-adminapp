@@ -27,30 +27,40 @@ export function SalesReport({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  const [me, setMe] = useState({});
+
   const [date, setDate] = useState(new Date());
   const [orders, setOrders] = useState([]);
   const [tax, setTax] = useState(0);
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocumentsOrdered(
-      setLoading,
-      "Orders",
-      (theseOrders) => {
-        setOrders(theseOrders);
-      },
-      0,
-      "desc",
-      "Date",
-      "Status",
-      "==",
-      "Completed",
-      false,
-      null,
-      null
-    );
-    firebase_GetDocument(setLoading, "Settings", "settings", (settings) => {
-      setTax(settings.Tax);
+    getInDevice("user", (person) => {
+      setMe(person);
+      firebase_GetAllDocumentsOrdered(
+        setLoading,
+        `Orders-${person.id}`,
+        (theseOrders) => {
+          setOrders(theseOrders);
+        },
+        0,
+        "desc",
+        "Date",
+        "Status",
+        "==",
+        "Completed",
+        false,
+        null,
+        null
+      );
+      firebase_GetDocument(
+        setLoading,
+        `Settings-${person.id}`,
+        "settings",
+        (settings) => {
+          setTax(settings.Tax);
+        }
+      );
     });
   }, []);
 
@@ -98,7 +108,16 @@ export function SalesReport({ navigation, route }) {
                 )
                 .map((order, i) => {
                   return (
-                    <View key={i} style={[{backgroundColor: secondaryThemedBackgroundColor(theme)}, layout.padding]}>
+                    <View
+                      key={i}
+                      style={[
+                        {
+                          backgroundColor:
+                            secondaryThemedBackgroundColor(theme),
+                        },
+                        layout.padding,
+                      ]}
+                    >
                       <TextView
                         theme={theme}
                         size={24}
@@ -116,8 +135,12 @@ export function SalesReport({ navigation, route }) {
                                 <TextView size={22} theme={theme}>
                                   {item.Quantity}x
                                 </TextView>
-                               
-                                <TextView size={22} theme={theme} styles={[{width: "85%"}]}>
+
+                                <TextView
+                                  size={22}
+                                  theme={theme}
+                                  styles={[{ width: "85%" }]}
+                                >
                                   {item.Item.Name}
                                 </TextView>
                               </SideBySide>

@@ -29,6 +29,9 @@ export function Rewards({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  //
+  const [me, setMe] = useState({});
+
   const [rewards, setRewards] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -43,7 +46,7 @@ export function Rewards({ navigation, route }) {
         Category: category,
         Points: points,
       },
-      "Rewards",
+      `Rewards-${me.id}`,
       randomString(25)
     ).then(() => {
       setLoading(false);
@@ -62,7 +65,7 @@ export function Rewards({ navigation, route }) {
           style: "destructive",
           onPress: () => {
             setLoading(true);
-            firebase_DeleteDocument(setLoading, "Rewards", reward.id);
+            firebase_DeleteDocument(setLoading, `Rewards-${me.id}`, reward.id);
           },
         },
       ]
@@ -71,40 +74,43 @@ export function Rewards({ navigation, route }) {
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocumentsListener(
-      setLoading,
-      "Rewards",
-      setRewards,
-      0,
-      "",
-      "",
-      "",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
-    firebase_GetAllDocuments(
-      setLoading,
-      "Items",
-      (items) => {
-        const tempArr = removeDuplicates(
-          items.map((ting) => {
-            return ting.Category;
-          })
-        );
-        setCategories(tempArr);
-      },
-      0,
-      "",
-      "",
-      "",
-      false,
-      null,
-      null
-    );
+    getInDevice("user", (person) => {
+      setMe(person);
+      firebase_GetAllDocumentsListener(
+        setLoading,
+        `Rewards-${person.id}`,
+        setRewards,
+        0,
+        "",
+        "",
+        "",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+      firebase_GetAllDocuments(
+        setLoading,
+        `Items-${person.id}`,
+        (items) => {
+          const tempArr = removeDuplicates(
+            items.map((ting) => {
+              return ting.Category;
+            })
+          );
+          setCategories(tempArr);
+        },
+        0,
+        "",
+        "",
+        "",
+        false,
+        null,
+        null
+      );
+    });
   }, []);
 
   return (

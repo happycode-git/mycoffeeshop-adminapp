@@ -30,6 +30,9 @@ export function Specials({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  //
+  const [me, setMe] = useState({});
+
   const [items, setItems] = useState([]);
   const [chosenItem, setChosenItem] = useState("Select One");
   const [startDate, setStartDate] = useState(new Date());
@@ -46,7 +49,7 @@ export function Specials({ navigation, route }) {
       Percentage: parseInt(percentage),
     };
 
-    firebase_CreateDocument(args, "Specials", randomString(25)).then(() => {
+    firebase_CreateDocument(args, `Specials-${me.id}`, randomString(25)).then(() => {
       setStartDate(new Date());
       setEndDate(new Date());
       setPercentage("");
@@ -64,7 +67,7 @@ export function Specials({ navigation, route }) {
           text: "Remove",
           style: "destructive",
           onPress: () => {
-            firebase_DeleteDocument(setLoading, "Specials", special.id);
+            firebase_DeleteDocument(setLoading, `Specials-${me.id}`, special.id);
           },
         },
       ]
@@ -73,33 +76,36 @@ export function Specials({ navigation, route }) {
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocuments(
-      setLoading,
-      "Items",
-      setItems,
-      0,
-      "",
-      "",
-      "",
-      false,
-      null,
-      null
-    );
-    firebase_GetAllDocumentsListener(
-      setLoading,
-      "Specials",
-      setSpecials,
-      0,
-      "",
-      "",
-      "",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
+    getInDevice("user", (person) => {
+      setMe(person);
+      firebase_GetAllDocuments(
+        setLoading,
+        `Items-${person.id}`,
+        setItems,
+        0,
+        "",
+        "",
+        "",
+        false,
+        null,
+        null
+      );
+      firebase_GetAllDocumentsListener(
+        setLoading,
+        `Specials-${person.id}`,
+        setSpecials,
+        0,
+        "",
+        "",
+        "",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+    });
   }, []);
 
   return (

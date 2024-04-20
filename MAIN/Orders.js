@@ -35,6 +35,8 @@ export function Orders({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+const [me, setMe] = useState({})
+
   const [section, setSection] = useState("Preparing");
   const [preparingOrders, setPreparingOrders] = useState([]);
   const [showPreparingOptions, setShowPreparingOptions] = useState(false);
@@ -45,61 +47,65 @@ export function Orders({ navigation, route }) {
   const [showCompletedOptions, setShowCompletedOptions] = useState(false);
   const [chosenPhone, setChosenPhone] = useState("");
   const [showPhone, setShowPhone] = useState(false);
+  const [chosenOrder, setChosenOrder] = useState({})
   const [tax, setTax] = useState(8.75);
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocumentsListenerOrdered(
-      setLoading,
-      "Orders",
-      setPreparingOrders,
-      0,
-      "asc",
-      "Date",
-      "Status",
-      "==",
-      "Preparing",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
-    firebase_GetAllDocumentsListenerOrdered(
-      setLoading,
-      "Orders",
-      setReadyOrders,
-      0,
-      "asc",
-      "Date",
-      "Status",
-      "==",
-      "Ready",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
-    firebase_GetAllDocumentsListenerOrdered(
-      setLoading,
-      "Orders",
-      setCompletedOrders,
-      0,
-      "asc",
-      "Date",
-      "Status",
-      "==",
-      "Completed",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
+    getInDevice("user", (person) => {
+      setMe(person)
+      firebase_GetAllDocumentsListenerOrdered(
+        setLoading,
+        `Orders-${person.id}`,
+        setPreparingOrders,
+        0,
+        "asc",
+        "Date",
+        "Status",
+        "==",
+        "Preparing",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+      firebase_GetAllDocumentsListenerOrdered(
+        setLoading,
+        `Orders-${person.id}`,
+        setReadyOrders,
+        0,
+        "asc",
+        "Date",
+        "Status",
+        "==",
+        "Ready",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+      firebase_GetAllDocumentsListenerOrdered(
+        setLoading,
+        `Orders-${person.id}`,
+        setCompletedOrders,
+        0,
+        "asc",
+        "Date",
+        "Status",
+        "==",
+        "Completed",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+    });
   }, []);
 
   return (
@@ -261,6 +267,7 @@ export function Orders({ navigation, route }) {
                           ]}
                           onPress={() => {
                             setChosenPhone(order.Phone);
+                            setChosenOrderID(order)
                             setChosenOrderID(order.id);
                             setShowReadyOptions(true);
                           }}
@@ -558,16 +565,27 @@ export function Orders({ navigation, route }) {
               Option: "Mark As Ready",
               Text: "Select if the order has finished being prepared.",
               Func: () => {
-                firebase_UpdateDocument(setLoading, "Orders", chosenOrderID, {
+                firebase_UpdateDocument(setLoading, `Orders-${me.id}`, chosenOrderID, {
                   Status: "Ready",
                 });
-                const chosenOrder = preparingOrders.find((ting) => ting.id === chosenOrderID)
-                firebase_GetDocument(setLoading, "Users", chosenOrder.UserID, (user) => {
-                  const token = user.Token
-                  if (token !== undefined) {
-                    sendPushNotification(token, "Order Is Ready!", "Please stop by soon to pick up your order.")
+                const chosenOrder = preparingOrders.find(
+                  (ting) => ting.id === chosenOrderID
+                );
+                firebase_GetDocument(
+                  setLoading,
+                  "Users",
+                  chosenOrder.UserID,
+                  (user) => {
+                    const token = user.Token;
+                    if (token !== undefined) {
+                      sendPushNotification(
+                        token,
+                        "Order Is Ready!",
+                        "Please stop by soon to pick up your order."
+                      );
+                    }
                   }
-                })
+                );
                 setShowPreparingOptions(false);
                 setChosenOrderID("");
               },
@@ -594,15 +612,24 @@ export function Orders({ navigation, route }) {
               Option: "Mark As Complete",
               Text: "Select if the order has been picked up by the customer.",
               Func: () => {
-                firebase_UpdateDocument(setLoading, "Orders", chosenOrderID, {
+                firebase_UpdateDocument(setLoading, `Orders-${me.id}`, chosenOrderID, {
                   Status: "Completed",
                 });
-                firebase_GetDocument(setLoading, "Users", chosenOrder.UserID, (user) => {
-                  const token = user.Token
-                  if (token !== undefined) {
-                    sendPushNotification(token, "Order Complete", "Thank you for your order! Please enjoy :)")
+                firebase_GetDocument(
+                  setLoading,
+                  "Users",
+                  chosenOrder.UserID,
+                  (user) => {
+                    const token = user.Token;
+                    if (token !== undefined) {
+                      sendPushNotification(
+                        token,
+                        "Order Complete",
+                        "Thank you for your order! Please enjoy :)"
+                      );
+                    }
                   }
-                })
+                );
                 setShowReadyOptions(false);
                 setChosenOrderID("");
               },

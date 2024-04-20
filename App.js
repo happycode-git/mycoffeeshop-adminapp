@@ -12,6 +12,7 @@ import { Settings } from "./MAIN/Settings";
 import { Orders } from "./MAIN/Orders";
 import { SalesReport } from "./MAIN/SalesReport";
 import { Updates } from "./MAIN/Updates";
+import { Login } from "./MAIN/Login";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,14 @@ export default function App() {
   }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="options">
+      <Stack.Navigator initialRouteName="login">
+      <Stack.Screen
+          name="login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="options"
           component={Options}

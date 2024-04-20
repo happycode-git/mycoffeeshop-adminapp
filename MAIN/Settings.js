@@ -29,6 +29,7 @@ export function Settings({ navigation, route }) {
   const [loading, setLoading] = useState(false);
   const [fakeLoading, setFakeLoading] = useState(false);
   const [theme, setTheme] = useState("");
+  const [me, setMe] = useState({})
   //
   const [points, setPoints] = useState("");
   const [tax, setTax] = useState("");
@@ -189,13 +190,13 @@ export function Settings({ navigation, route }) {
             Start: start,
             End: end,
           },
-          "Hours",
+          `Hours-${me.id}`,
           day
         );
       }
     }
 
-    firebase_UpdateDocument(setLoading, "Settings", "settings", {
+    firebase_UpdateDocument(setLoading, `Settings-${me.id}`, "settings", {
       PointsPerDollar: parseInt(points),
       Tax: parseFloat(tax),
     }).then(() => {
@@ -208,12 +209,15 @@ export function Settings({ navigation, route }) {
       setTheme(thisTheme);
       setToggleTheme(thisTheme === "light" ? true : false);
     });
-
-    firebase_GetDocument(setLoading, "Settings", "settings", (thing) => {
-      setPoints(`${thing.PointsPerDollar}`);
-      setTax(`${thing.Tax}`);
-      setMaxPoints(`${thing.MaxPoints}`);
-    });
+    
+    getInDevice("user", (person) => {
+      setMe(person)
+      firebase_GetDocument(setLoading, `Settings-${person.id}`, "settings", (thing) => {
+        setPoints(`${thing.PointsPerDollar}`);
+        setTax(`${thing.Tax}`);
+        setMaxPoints(`${thing.MaxPoints}`);
+      });
+    })
   }, []);
 
   return (

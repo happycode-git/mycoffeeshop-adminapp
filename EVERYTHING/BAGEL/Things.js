@@ -111,11 +111,11 @@ const firebaseConfig = {
   storageBucket: "coffeeshopapp-b639b.appspot.com",
   messagingSenderId: "147422283500",
   appId: "1:147422283500:web:660263371b6c6f95e487c9",
-  measurementId: "G-C7QVG6XZ8Q",
+  measurementId: "G-C7QVG6XZ8Q"
 };
 
 // APP INFO
-export var appName = "Happy Code Dev";
+export var appName = "My Coffeshop Admin";
 
 // EXTRAS
 export const themedTextColor = (theme) => {

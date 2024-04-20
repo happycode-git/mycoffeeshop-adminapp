@@ -31,23 +31,25 @@ export function Menu({ navigation, route }) {
 
   useEffect(() => {
     getInDevice("theme", setTheme);
-    firebase_GetAllDocumentsListenerOrdered(
-      setLoading,
-      "Items",
-      setItems,
-      0,
-      "asc",
-      "Category",
-      "",
-      "",
-      "",
-      false,
-      null,
-      null,
-      () => {},
-      () => {},
-      () => {}
-    );
+    getInDevice("user", (person) => {
+      firebase_GetAllDocumentsListenerOrdered(
+        setLoading,
+        `Items-${person.id}`,
+        setItems,
+        0,
+        "asc",
+        "Category",
+        "",
+        "",
+        "",
+        false,
+        null,
+        null,
+        () => {},
+        () => {},
+        () => {}
+      );
+    });
   }, []);
 
   return (
@@ -124,9 +126,17 @@ export function Menu({ navigation, route }) {
                   .filter((ting) => ting.Category === chosenCategory)
                   .map((item, i) => {
                     return (
-                      <TouchableOpacity key={i} style={[layout.relative]} onPress={() => {
-                        navigation.navigate("edit-item", {chosenItem: item, items, setItems})
-                      }}>
+                      <TouchableOpacity
+                        key={i}
+                        style={[layout.relative]}
+                        onPress={() => {
+                          navigation.navigate("edit-item", {
+                            chosenItem: item,
+                            items,
+                            setItems,
+                          });
+                        }}
+                      >
                         <AsyncImage
                           path={
                             item.ImagePath !== undefined
